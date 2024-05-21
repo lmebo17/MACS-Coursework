@@ -1,0 +1,201 @@
+diff --git a/answers-pgtbl.txt b/answers-pgtbl.txt
+new file mode 100644
+index 0000000..3e0a440
+--- /dev/null
++++ b/answers-pgtbl.txt
+@@ -0,0 +1,2 @@
++1) სისქოლები, რომლებსაც მხოლოდ წაკითხვა სჭირდებათ.
++2) ppn-ში უკვე pa-ს პირველი ნაწილი წერია, ბოლო 10 ბიტი კი permission ფლეგებია.
+\ No newline at end of file
+diff --git a/kernel/defs.h b/kernel/defs.h
+index a3c962b..487f4f2 100644
+--- a/kernel/defs.h
++++ b/kernel/defs.h
+@@ -173,6 +173,7 @@ uint64          walkaddr(pagetable_t, uint64);
+ int             copyout(pagetable_t, uint64, char *, uint64);
+ int             copyin(pagetable_t, char *, uint64, uint64);
+ int             copyinstr(pagetable_t, char *, uint64, uint64);
++void            vmprint(pagetable_t);
+ 
+ // plic.c
+ void            plicinit(void);
+diff --git a/kernel/exec.c b/kernel/exec.c
+index e18bbb6..35b35f5 100644
+--- a/kernel/exec.c
++++ b/kernel/exec.c
+@@ -128,6 +128,10 @@ exec(char *path, char **argv)
+   p->trapframe->sp = sp; // initial stack pointer
+   proc_freepagetable(oldpagetable, oldsz);
+ 
++  if(p->pid == 1){
++    vmprint(p->pagetable);
++  }
++
+   return argc; // this ends up in a0, the first argument to main(argc, argv)
+ 
+  bad:
+diff --git a/kernel/proc.c b/kernel/proc.c
+index 58a8a0b..c8b5d86 100644
+--- a/kernel/proc.c
++++ b/kernel/proc.c
+@@ -125,6 +125,7 @@ found:
+   p->pid = allocpid();
+   p->state = USED;
+ 
++
+   // Allocate a trapframe page.
+   if((p->trapframe = (struct trapframe *)kalloc()) == 0){
+     freeproc(p);
+@@ -132,6 +133,13 @@ found:
+     return 0;
+   }
+ 
++  if((p->usyscallpage = (struct usyscall *)kalloc()) == 0){
++    freeproc(p);
++    release(&p->lock);
++    return 0;
++  }
++  p->usyscallpage->pid = p->pid;
++
+   // An empty user page table.
+   p->pagetable = proc_pagetable(p);
+   if(p->pagetable == 0){
+@@ -158,6 +166,10 @@ freeproc(struct proc *p)
+   if(p->trapframe)
+     kfree((void*)p->trapframe);
+   p->trapframe = 0;
++  if(p->usyscallpage){
++    kfree((void*)p->usyscallpage);
++  }
++  p->usyscallpage = 0;
+   if(p->pagetable)
+     proc_freepagetable(p->pagetable, p->sz);
+   p->pagetable = 0;
+@@ -183,6 +195,11 @@ proc_pagetable(struct proc *p)
+   if(pagetable == 0)
+     return 0;
+ 
++  if(mappages(pagetable, USYSCALL, PGSIZE, (uint64)p->usyscallpage, PTE_R | PTE_U) < 0){
++    uvmfree(pagetable, 0);
++    return 0;
++  }
++
+   // map the trampoline code (for system call return)
+   // at the highest user virtual address.
+   // only the supervisor uses it, on the way
+@@ -212,7 +229,9 @@ proc_freepagetable(pagetable_t pagetable, uint64 sz)
+ {
+   uvmunmap(pagetable, TRAMPOLINE, 1, 0);
+   uvmunmap(pagetable, TRAPFRAME, 1, 0);
++  uvmunmap(pagetable, USYSCALL, 1, 0);
+   uvmfree(pagetable, sz);
++
+ }
+ 
+ // a user program that calls exec("/init")
+diff --git a/kernel/proc.h b/kernel/proc.h
+index d021857..48b53a3 100644
+--- a/kernel/proc.h
++++ b/kernel/proc.h
+@@ -84,7 +84,7 @@ enum procstate { UNUSED, USED, SLEEPING, RUNNABLE, RUNNING, ZOMBIE };
+ // Per-process state
+ struct proc {
+   struct spinlock lock;
+-
++  struct usyscall* usyscallpage;
+   // p->lock must be held when using these:
+   enum procstate state;        // Process state
+   void *chan;                  // If non-zero, sleeping on chan
+diff --git a/kernel/riscv.h b/kernel/riscv.h
+index 20a01db..100895e 100644
+--- a/kernel/riscv.h
++++ b/kernel/riscv.h
+@@ -343,6 +343,7 @@ typedef uint64 *pagetable_t; // 512 PTEs
+ #define PTE_W (1L << 2)
+ #define PTE_X (1L << 3)
+ #define PTE_U (1L << 4) // user can access
++#define PTE_A (1L << 6)
+ 
+ // shift a physical address to the right place for a PTE.
+ #define PA2PTE(pa) ((((uint64)pa) >> 12) << 10)
+diff --git a/kernel/sysproc.c b/kernel/sysproc.c
+index 88644b2..b162c08 100644
+--- a/kernel/sysproc.c
++++ b/kernel/sysproc.c
+@@ -71,10 +71,25 @@ sys_sleep(void)
+ 
+ 
+ #ifdef LAB_PGTBL
+-int
+-sys_pgaccess(void)
+-{
+-  // lab pgtbl: your code here.
++int sys_pgaccess(void){
++  uint64 start_addr;
++  int page_num;
++  uint64 user_addr;
++  argaddr(0, &start_addr);
++  argint(1, &page_num);
++  argaddr(2, &user_addr);
++
++  int bitmask = 0;
++  for(int i = 0; i < page_num; i++){
++    pte_t* curr_pte = walk(myproc()->pagetable, start_addr + i*PGSIZE, 0);
++    if(*curr_pte & PTE_A){
++      bitmask |= (1 << i);
++    }
++    if(*curr_pte && (1 << 6)){
++        *curr_pte &= ~PTE_A;
++    }
++  }
++  copyout(myproc()->pagetable, user_addr, (char*)&bitmask, sizeof(bitmask));
+   return 0;
+ }
+ #endif
+@@ -100,3 +115,5 @@ sys_uptime(void)
+   release(&tickslock);
+   return xticks;
+ }
++
++
+diff --git a/kernel/vm.c b/kernel/vm.c
+index 5c31e87..6aa482f 100644
+--- a/kernel/vm.c
++++ b/kernel/vm.c
+@@ -449,3 +449,28 @@ copyinstr(pagetable_t pagetable, char *dst, uint64 srcva, uint64 max)
+     return -1;
+   }
+ }
++
++void
++print_page_table(pagetable_t pagetable, int level)
++{
++  // there are 2^9 = 512 PTEs in a page table.
++  for(int i = 0; i < 512; i++){
++    pte_t pte = pagetable[i];
++    uint64 child = PTE2PA(pte);
++    if(pte & PTE_V){
++        for(int j = 0; j < level; j++){
++          printf(".. ");
++        } 
++        printf("..");
++        printf("%d: pte %p pa %p\n", i, pte, child);
++        if(level > 1) continue;
++        print_page_table((pagetable_t)child, level + 1);
++    } 
++  }
++  
++}
++
++void vmprint(pagetable_t page_table){
++  printf("page table %p\n", page_table);
++  print_page_table(page_table, 0);
++}
+diff --git a/time.txt b/time.txt
+new file mode 100644
+index 0000000..7813681
+--- /dev/null
++++ b/time.txt
+@@ -0,0 +1 @@
++5
+\ No newline at end of file

@@ -1,0 +1,80 @@
+diff --git a/kernel/e1000.c b/kernel/e1000.c
+index 70a2adf..3add1dc 100644
+--- a/kernel/e1000.c
++++ b/kernel/e1000.c
+@@ -92,29 +92,48 @@ e1000_init(uint32 *xregs)
+   regs[E1000_IMS] = (1 << 7); // RXDW -- Receiver Descriptor Write Back
+ }
+ 
+-int
+-e1000_transmit(struct mbuf *m)
++int e1000_transmit(struct mbuf *m)
+ {
+-  //
+-  // Your code here.
+-  //
+-  // the mbuf contains an ethernet frame; program it into
+-  // the TX descriptor ring so that the e1000 sends it. Stash
+-  // a pointer so that it can be freed after sending.
+-  //
+   
++  acquire(&e1000_lock);
++  int index = regs[E1000_TDT];
++  if (!(tx_ring[index].status && E1000_TXD_STAT_DD)) {
++    release(&e1000_lock);
++    return - 1;
++  } else if (tx_mbufs[index]){
++    mbuffree(tx_mbufs[index]);
++  }
++
++  tx_ring[index].cmd |= E1000_TXD_CMD_EOP | E1000_TXD_CMD_RS;
++  tx_ring[index].length = (uint64) m->len;
++  tx_ring[index].addr = (uint64) m->head;
++  
++  tx_mbufs[index] = m;
++  regs[E1000_TDT] = (index + 1) % TX_RING_SIZE;
++  release(&e1000_lock);
+   return 0;
+ }
+ 
++
++
+ static void
+ e1000_recv(void)
+ {
+-  //
+-  // Your code here.
+-  //
+-  // Check for packets that have arrived from the e1000
+-  // Create and deliver an mbuf for each packet (using net_rx()).
+-  //
++  acquire(&e1000_lock);
++  int index = (regs[E1000_RDT]+1) % RX_RING_SIZE;
++  while (1) {
++    if(!(rx_ring[index].status && E1000_RXD_STAT_DD)) break;
++    mbufput(rx_mbufs[index], rx_ring[index].length);
++    release(&e1000_lock);
++    net_rx(rx_mbufs[index]);
++    acquire(&e1000_lock);
++    rx_mbufs[index] = mbufalloc(0);
++    rx_ring[index].status = 0;
++    rx_ring[index].addr = (uint64) rx_mbufs[index]->head;
++    regs[E1000_RDT] = index;
++    index = (index + 1) % RX_RING_SIZE;
++  }
++  release(&e1000_lock);
+ }
+ 
+ void
+diff --git a/lab-lock-handin.tar.gz b/lab-lock-handin.tar.gz
+new file mode 100644
+index 0000000..0b3180f
+Binary files /dev/null and b/lab-lock-handin.tar.gz differ
+diff --git a/time.txt b/time.txt
+new file mode 100644
+index 0000000..56a6051
+--- /dev/null
++++ b/time.txt
+@@ -0,0 +1 @@
++1
+\ No newline at end of file

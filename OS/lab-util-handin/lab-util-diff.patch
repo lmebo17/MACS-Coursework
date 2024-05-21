@@ -1,0 +1,313 @@
+diff --git a/Makefile b/Makefile
+index 212a89d..c35af9d 100644
+--- a/Makefile
++++ b/Makefile
+@@ -188,7 +188,11 @@ UPROGS=\
+ 	$U/_grind\
+ 	$U/_wc\
+ 	$U/_zombie\
+-
++	$U/_xargs\
++	$U/_find\
++	$U/_pingpong\
++	$U/_sleep\
++	$U/_primes\
+ 
+ 
+ 
+diff --git a/time.txt b/time.txt
+new file mode 100644
+index 0000000..9a03714
+--- /dev/null
++++ b/time.txt
+@@ -0,0 +1 @@
++10
+\ No newline at end of file
+diff --git a/user/find.c b/user/find.c
+new file mode 100644
+index 0000000..6e86b52
+--- /dev/null
++++ b/user/find.c
+@@ -0,0 +1,92 @@
++#include "kernel/types.h"
++#include "kernel/stat.h"
++#include "user/user.h"
++#include "kernel/fs.h"
++#include "kernel/fcntl.h"
++
++char* fmtname(char *path) {
++    static char buf[DIRSIZ+1];
++    char *p;
++
++    // Find first character after last slash.
++    for(p=path+strlen(path); p >= path && *p != '/'; p--)
++        ;
++    p++;
++
++    // Return blank-padded name.
++    if(strlen(p) >= DIRSIZ)
++        return p;
++    memmove(buf, p, strlen(p));
++    memset(buf+strlen(p), ' ', DIRSIZ-strlen(p));
++    return buf;
++}
++
++void
++find(char *path, char *file_name)
++{
++  char buf[512], *p;
++  int fd;
++  struct dirent de;
++  struct stat st;
++
++  if((fd = open(path, 0)) < 0){
++    fprintf(2, "find: cannot open %s\n", path);
++    return;
++  }
++
++  if(fstat(fd, &st) < 0){
++    fprintf(2, "find: cannot stat %s\n", path);
++    close(fd);
++    return;
++  }
++
++  switch(st.type){
++  case T_FILE:
++      char* tmp = fmtname(path);
++      if(strcmp(tmp, file_name) == 0){
++        printf("%s\n", path);
++      }
++    break;
++
++  case T_DIR:
++    if(strlen(path) + 1 + DIRSIZ + 1 > sizeof buf){
++      printf("find: path too long\n");
++      break;
++    }
++    strcpy(buf, path);
++    p = buf+strlen(buf);
++    *p++ = '/';
++    while(read(fd, &de, sizeof(de)) == sizeof(de)){
++      if(de.inum == 0)
++        continue;
++      memmove(p, de.name, DIRSIZ);
++      p[DIRSIZ] = 0;
++      if(stat(buf, &st) < 0){
++        printf("find: cannot stat %s\n", buf);
++        continue;
++      }
++      if(strcmp(de.name, ".") == 0 || strcmp(de.name, "..") == 0) continue;
++      find(buf, file_name);
++    }
++    break;
++  }
++  close(fd);
++}
++
++int main(int argc, char* argv[]){
++    char* file_name = argv[2];
++    int cnt = 0;
++    char* tmp = file_name;
++    while(*file_name != '\0'){
++        cnt++;
++        file_name++;
++    }
++    while(cnt != DIRSIZ){
++        *file_name = ' ';
++        cnt++;
++        file_name++;
++    }
++    file_name = tmp;
++    find(argv[1], file_name);
++    exit(0);
++}
+\ No newline at end of file
+diff --git a/user/pingpong.c b/user/pingpong.c
+new file mode 100644
+index 0000000..04093d9
+--- /dev/null
++++ b/user/pingpong.c
+@@ -0,0 +1,27 @@
++#include "kernel/types.h"
++#include "kernel/stat.h"
++#include "kernel/fcntl.h"
++#include "user/user.h"
++
++
++int main(int argc, char* argv[]){
++    int fd[2]; 
++    char buf[1] = {'x'};
++    pipe(fd);
++    int pid = fork();
++    if(pid == 0){
++        read(fd[0], buf, 1);
++        close(fd[0]);
++        printf("%d: received ping\n", getpid());
++        write(fd[1], buf , 1);
++        close(fd[1]);
++    } else {
++        write(fd[1], buf, 1);
++        close(fd[1]);
++        read(fd[0], buf, 1);
++        printf("%d: received pong\n", getpid());
++        close(fd[0]);
++        
++    }
++    exit(0);
++}
+diff --git a/user/primes.c b/user/primes.c
+new file mode 100644
+index 0000000..185d9e0
+--- /dev/null
++++ b/user/primes.c
+@@ -0,0 +1,54 @@
++#include "kernel/types.h"
++#include "kernel/stat.h"
++#include "kernel/fcntl.h"
++#include "user/user.h"
++
++
++
++void child_work(int lp[]){
++    int pr;
++    int k = read(lp[0], &pr, sizeof(int));
++    if(k <= 0) return;
++    printf("prime %d\n", pr);
++    if(pr == 31) return;
++    int rp[2];
++    pipe(rp);
++    int curr = 0;
++    while(1){
++        int n = read(lp[0], &curr, sizeof(int));
++        if(n <= 0) {
++            break;
++        }
++        if(curr % pr){
++           n = write(rp[1], &curr, sizeof(int));
++        }
++        if(n <= 0) break;
++    }
++    int pid = fork();
++    if(pid == 0){
++        close(rp[1]);
++        close(lp[0]);
++        child_work(rp);
++        close(rp[0]);
++    } else {
++        close(rp[0]);
++        close(rp[1]);
++        close(lp[0]);
++        wait(0); 
++    }
++}
++
++int main(int argc, char* argv[]) {
++    int p[2];
++    int k = pipe(p);
++    if(k == -1) return k;
++    for(int i = 2; i <= 35; i++){
++        int tmp = i;
++        k = write(p[1], &tmp, sizeof(int));
++        if(k == -1) return k;
++    }
++    close(p[1]);
++    child_work(p);
++    close(p[0]);
++    return 0;
++}
+diff --git a/user/sleep.c b/user/sleep.c
+new file mode 100644
+index 0000000..918c0f7
+--- /dev/null
++++ b/user/sleep.c
+@@ -0,0 +1,26 @@
++#include "kernel/types.h"
++#include "kernel/stat.h"
++#include "kernel/fcntl.h"
++#include "user/user.h"
++
++int string_to_int(char* num);
++
++int main(int argc, char* argv[]){
++    if(argc == 1){
++        fprintf(2, "error\n");
++        return 0;
++    }
++    int ticks = string_to_int(argv[1]);
++    
++    sleep(ticks);
++    return 0;
++}
++
++int string_to_int(char* num){
++    int res = 0;
++    while(*num != '\0'){
++        res = 10*res + (*num - '0');
++        num++;
++    }
++    return res;
++}
+diff --git a/user/xargs.c b/user/xargs.c
+new file mode 100644
+index 0000000..46dfebf
+--- /dev/null
++++ b/user/xargs.c
+@@ -0,0 +1,57 @@
++#include "kernel/types.h"
++#include "kernel/stat.h"
++#include "kernel/fcntl.h"
++#include "user/user.h"
++#include "kernel/param.h"
++
++
++
++
++int main(int argc, char* argv[]){
++    char* func_to_exec = argv[1];  
++    while(1){
++        char buf[100];
++        int n = read(0, buf, sizeof(buf));
++        int cnt = 1;
++        for(int i = 0; i < n; i++){
++            cnt += (buf[i] == ' ' || buf[i] == '\n');
++        }
++        
++        printf("");
++
++        char* new_buf[argc + cnt];
++        for(int i = 0; i < argc - 1; i++){
++            new_buf[i] = argv[i+1];
++        }
++        
++        
++        int ind = argc - 1;
++        char* arg = malloc(1);
++        char* start = arg;
++        for(int i = 0; i <= n; i++){
++            if(buf[i] == ' ' || buf[i] == '\n' || buf[i] == '\t'){
++                *arg = '\0';
++                new_buf[ind] = start;
++                ind++;
++                arg = malloc(1);
++                start = arg;
++                continue;
++            }
++             *arg = buf[i];
++              arg++;
++        }
++            
++        new_buf[argc - 1 + cnt] = 0;
++
++        if(n <= 0) break;
++        int pid = fork();
++        if(pid == 0){
++            exec(func_to_exec, new_buf);
++        } else {
++            wait(0);
++        }
++    
++    }
++
++    return 0;
++}
+\ No newline at end of file

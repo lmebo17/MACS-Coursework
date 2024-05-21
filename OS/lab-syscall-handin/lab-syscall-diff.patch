@@ -1,0 +1,242 @@
+diff --git a/.vscode/settings.json b/.vscode/settings.json
+new file mode 100644
+index 0000000..c2a613b
+--- /dev/null
++++ b/.vscode/settings.json
+@@ -0,0 +1,6 @@
++{
++    "files.associations": {
++        "sysinfo.h": "c",
++        "proc.h": "c"
++    }
++}
+\ No newline at end of file
+diff --git a/Makefile b/Makefile
+index 212a89d..97d477b 100644
+--- a/Makefile
++++ b/Makefile
+@@ -188,7 +188,8 @@ UPROGS=\
+ 	$U/_grind\
+ 	$U/_wc\
+ 	$U/_zombie\
+-
++	$U/_trace\
++	$U/_sysinfotest\
+ 
+ 
+ 
+diff --git a/answers-syscall.txt b/answers-syscall.txt
+new file mode 100644
+index 0000000..815bb25
+--- /dev/null
++++ b/answers-syscall.txt
+@@ -0,0 +1,9 @@
++usertrap
++7
++user mode
++lw    s2,0(zero) # 0 <_entry-0x80000000>
++SCR
++No
++No
++"initcode\000\000\000\000\000\000\000"
++0x1
+\ No newline at end of file
+diff --git a/kernel/kalloc.c b/kernel/kalloc.c
+index 0699e7e..066d123 100644
+--- a/kernel/kalloc.c
++++ b/kernel/kalloc.c
+@@ -80,3 +80,17 @@ kalloc(void)
+     memset((char*)r, 5, PGSIZE); // fill with junk
+   return (void*)r;
+ }
++
++
++uint64 get_free_memory_count(){
++    uint64 cnt = 0;
++    struct run* r;
++    acquire(&kmem.lock);
++    r = kmem.freelist;
++    while(r){
++      cnt += PGSIZE;
++      r = r->next;
++    }
++    release(&kmem.lock);
++    return cnt;
++}
+\ No newline at end of file
+diff --git a/kernel/proc.c b/kernel/proc.c
+index 58a8a0b..a947a29 100644
+--- a/kernel/proc.c
++++ b/kernel/proc.c
+@@ -288,6 +288,10 @@ fork(void)
+     return -1;
+   }
+ 
++
++  // copying masks
++  np->mask = p->mask;
++
+   // Copy user memory from parent to child.
+   if(uvmcopy(p->pagetable, np->pagetable, p->sz) < 0){
+     freeproc(np);
+@@ -686,3 +690,12 @@ procdump(void)
+     printf("\n");
+   }
+ }
++
++uint64 get_nproc(){
++    uint64 cnt = 0;
++    struct proc* p;
++    for(p = proc; p < &proc[NPROC]; p++){
++      cnt += p->state != UNUSED;
++    }
++    return cnt;
++}
+diff --git a/kernel/proc.h b/kernel/proc.h
+index d021857..d455026 100644
+--- a/kernel/proc.h
++++ b/kernel/proc.h
+@@ -85,6 +85,8 @@ enum procstate { UNUSED, USED, SLEEPING, RUNNABLE, RUNNING, ZOMBIE };
+ struct proc {
+   struct spinlock lock;
+ 
++  int mask;
++
+   // p->lock must be held when using these:
+   enum procstate state;        // Process state
+   void *chan;                  // If non-zero, sleeping on chan
+diff --git a/kernel/syscall.c b/kernel/syscall.c
+index ed65409..fe0e5fa 100644
+--- a/kernel/syscall.c
++++ b/kernel/syscall.c
+@@ -101,6 +101,8 @@ extern uint64 sys_unlink(void);
+ extern uint64 sys_link(void);
+ extern uint64 sys_mkdir(void);
+ extern uint64 sys_close(void);
++extern uint64 sys_trace(void);
++extern uint64 sys_sysinfo(void);
+ 
+ // An array mapping syscall numbers from syscall.h
+ // to the function that handles the system call.
+@@ -126,8 +128,15 @@ static uint64 (*syscalls[])(void) = {
+ [SYS_link]    sys_link,
+ [SYS_mkdir]   sys_mkdir,
+ [SYS_close]   sys_close,
++[SYS_trace]   sys_trace,
++[SYS_sysinfo] sys_sysinfo
+ };
+ 
++char* sys_calls[24] = {"none",  "fork",  "exit",   "wait",   "pipe",  "read",  "kill",   "exec",
++                      "fstat", "chdir", "dup",    "getpid", "sbrk",  "sleep", "uptime", "open",
++                      "write", "mknod", "unlink", "link",   "mkdir", "close", "trace", "sysinfo"};
++
++
+ void
+ syscall(void)
+ {
+@@ -136,9 +145,10 @@ syscall(void)
+ 
+   num = p->trapframe->a7;
+   if(num > 0 && num < NELEM(syscalls) && syscalls[num]) {
+-    // Use num to lookup the system call function for num, call it,
+-    // and store its return value in p->trapframe->a0
+     p->trapframe->a0 = syscalls[num]();
++    if((p->mask >> num) & 1){
++       printf("%d: syscall %s -> %d\n", p->pid, sys_calls[num],p->trapframe->a0);
++    }
+   } else {
+     printf("%d %s: unknown sys call %d\n",
+             p->pid, p->name, num);
+diff --git a/kernel/syscall.h b/kernel/syscall.h
+index bc5f356..0dfedc7 100644
+--- a/kernel/syscall.h
++++ b/kernel/syscall.h
+@@ -20,3 +20,5 @@
+ #define SYS_link   19
+ #define SYS_mkdir  20
+ #define SYS_close  21
++#define SYS_trace  22
++#define SYS_sysinfo 23
+diff --git a/kernel/sysproc.c b/kernel/sysproc.c
+index 3b4d5bd..5f9b47a 100644
+--- a/kernel/sysproc.c
++++ b/kernel/sysproc.c
+@@ -5,6 +5,11 @@
+ #include "memlayout.h"
+ #include "spinlock.h"
+ #include "proc.h"
++#include "sysinfo.h"
++
++
++uint64 get_free_memory_count();
++uint64 get_nproc();
+ 
+ uint64
+ sys_exit(void)
+@@ -79,6 +84,28 @@ sys_kill(void)
+   return kill(pid);
+ }
+ 
++uint64
++sys_trace(void)
++{
++  int mask;
++  argint(0, &mask);
++  myproc()->mask = mask;
++  return 0;
++  
++}
++
++uint64
++sys_sysinfo(void){
++  int a;
++  argint(0, &a);
++  struct sysinfo info;
++  info.freemem = get_free_memory_count();
++  info.nproc = get_nproc();
++  if(copyout(myproc()->pagetable, a, (char *)&info, sizeof(info)) < 0) return -1;
++  return 0;
++  
++}
++
+ // return how many clock tick interrupts have occurred
+ // since start.
+ uint64
+diff --git a/time.txt b/time.txt
+new file mode 100644
+index 0000000..bf0d87a
+--- /dev/null
++++ b/time.txt
+@@ -0,0 +1 @@
++4
+\ No newline at end of file
+diff --git a/user/user.h b/user/user.h
+index 4d398d5..d529f9a 100644
+--- a/user/user.h
++++ b/user/user.h
+@@ -1,4 +1,6 @@
+ struct stat;
++struct sysinfo;
++
+ 
+ // system calls
+ int fork(void);
+@@ -22,6 +24,8 @@ int getpid(void);
+ char* sbrk(int);
+ int sleep(int);
+ int uptime(void);
++int trace(int);
++int sysinfo(struct sysinfo *);
+ 
+ // ulib.c
+ int stat(const char*, struct stat*);
+diff --git a/user/usys.pl b/user/usys.pl
+index 01e426e..bc109fd 100755
+--- a/user/usys.pl
++++ b/user/usys.pl
+@@ -36,3 +36,5 @@ entry("getpid");
+ entry("sbrk");
+ entry("sleep");
+ entry("uptime");
++entry("trace");
++entry("sysinfo");
