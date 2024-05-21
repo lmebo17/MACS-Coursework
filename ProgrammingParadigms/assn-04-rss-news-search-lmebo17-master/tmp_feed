@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet title="XSL_formatting" type="text/xsl" href="/shared/bsp/xsl/rss/nolsol.xsl"?>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/">
+    <channel>
+        <title>BBC News - Home</title>
+        <description>BBC News - Home</description>
+        <link>https://www.bbc.co.uk/news/</link>
+        <image>
+            <url>https://news.bbcimg.co.uk/nol/shared/img/bbc_news_120x60.gif</url>
+            <title>BBC News - Home</title>
+            <link>https://www.bbc.co.uk/news/</link>
+        </image>
+        <generator>RSS for Node</generator>
+        <lastBuildDate>Tue, 15 Nov 2022 18:24:10 GMT</lastBuildDate>
+        <copyright>Copyright: (C) British Broadcasting Corporation, see http://news.bbc.co.uk/2/hi/help/rss/4498287.stm for terms and conditions of reuse.</copyright>
+        <language>en-gb</language>
+        <ttl>15</ttl>
+        <item>
+            <title>Ukraine: Zelensky snubs Russia as he addresses 'G19' at G20</title>
+            <description>Ukraine's president called on world leaders to end the war, and extend a crucial grain deal.</description>
+            <link>https://www.bbc.co.uk/news/world-asia-63632161?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-asia-63632161</guid>
+            <pubDate>Tue, 15 Nov 2022 13:50:59 GMT</pubDate>
+        </item>
+        <item>
+            <title>China zero Covid: Violent protests in Guangzhou put curbs under strain</title>
+            <description>Anger boils over in the industrial city of Guangzhou, exposing cracks in Xi Jinping's signature policy.</description>
+            <link>https://www.bbc.co.uk/news/world-asia-china-63633109?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-asia-china-63633109</guid>
+            <pubDate>Tue, 15 Nov 2022 09:48:37 GMT</pubDate>
+        </item>
+        <item>
+            <title>Trump ally Kari Lake loses to Democrat Katie Hobbs in Arizona governor race</title>
+            <description>Republicans are still slightly favoured to secure the 218 seats they need to win back the majority.</description>
+            <link>https://www.bbc.co.uk/news/world-us-canada-63627007?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-us-canada-63627007</guid>
+            <pubDate>Tue, 15 Nov 2022 14:24:23 GMT</pubDate>
+        </item>
+        <item>
+            <title>Alaa Abdel Fattah: Jailed British-Egyptian activist ends hunger strike - letter</title>
+            <description>Alaa Abdel Fattah tells his family in a letter from prison he has broken a seven-month hunger strike.</description>
+            <link>https://www.bbc.co.uk/news/world-middle-east-63636783?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-middle-east-63636783</guid>
+            <pubDate>Tue, 15 Nov 2022 16:23:49 GMT</pubDate>
+        </item>
+        <item>
+            <title>As the 8 billionth child is born, who were 5th, 6th and 7th?</title>
+            <description>The world is still growing, but not as fast as when the six- and seven-billionth babies were born.</description>
+            <link>https://www.bbc.co.uk/news/world-63623307?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-63623307</guid>
+            <pubDate>Tue, 15 Nov 2022 00:43:03 GMT</pubDate>
+        </item>
+        <item>
+            <title>Three Israelis killed by Palestinian in West Bank knife and car attack</title>
+            <description>A Palestinian stabbed then rammed the victims with a stolen car in one of the deadliest recent attacks.</description>
+            <link>https://www.bbc.co.uk/news/world-middle-east-63633944?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-middle-east-63633944</guid>
+            <pubDate>Tue, 15 Nov 2022 14:39:35 GMT</pubDate>
+        </item>
+        <item>
+            <title>Google to pay record $391m privacy settlement</title>
+            <description>The technology company tracked users' locations despite them opting out, a US investigation found.</description>
+            <link>https://www.bbc.co.uk/news/technology-63635380?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/technology-63635380</guid>
+            <pubDate>Tue, 15 Nov 2022 14:06:21 GMT</pubDate>
+        </item>
+        <item>
+            <title>Guatemala arrests two in car full of Maya artefacts</title>
+            <description>Police seize more than 150 pre-Hispanic artefacts from two US citizens who reside in Guatemala.</description>
+            <link>https://www.bbc.co.uk/news/world-latin-america-63634660?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-latin-america-63634660</guid>
+            <pubDate>Tue, 15 Nov 2022 12:04:08 GMT</pubDate>
+        </item>
+        <item>
+            <title>Shraddha Walkar murder: Police investigate body parts found in Delhi wood</title>
+            <description>The murder of the 27-year-old allegedly by her live-in partner has made headlines in India.</description>
+            <link>https://www.bbc.co.uk/news/world-asia-india-63632513?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-asia-india-63632513</guid>
+            <pubDate>Tue, 15 Nov 2022 10:10:37 GMT</pubDate>
+        </item>
+        <item>
+            <title>Shireen Abu Aqla: Israel rejects US reporter death probe as mistake</title>
+            <description>Israel says it will not co-operate with an FBI investigation into the killing of Shireen Abu Aqla.</description>
+            <link>https://www.bbc.co.uk/news/world-middle-east-63631629?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-middle-east-63631629</guid>
+            <pubDate>Tue, 15 Nov 2022 12:18:05 GMT</pubDate>
+        </item>
+        <item>
+            <title>Netherlands to ban laughing gas from January</title>
+            <description>Authorities hope to reduce the number of accidents on Dutch roads involving people using the drug.</description>
+            <link>https://www.bbc.co.uk/news/world-europe-63634557?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-europe-63634557</guid>
+            <pubDate>Tue, 15 Nov 2022 12:40:29 GMT</pubDate>
+        </item>
+        <item>
+            <title>Mondrian painting sells for record $51m at auction</title>
+            <description>A 1930s painting by the Dutch artist has sold for $51m (£43m) in New York - a record for his work.</description>
+            <link>https://www.bbc.co.uk/news/entertainment-arts-63634961?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/entertainment-arts-63634961</guid>
+            <pubDate>Tue, 15 Nov 2022 12:43:38 GMT</pubDate>
+        </item>
+        <item>
+            <title>Ancient fish teeth reveal earliest sign of cooking</title>
+            <description>Tests on fish remains found in Israel suggest man first cooked far earlier than previously thought.</description>
+            <link>https://www.bbc.co.uk/news/world-middle-east-63596141?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-middle-east-63596141</guid>
+            <pubDate>Tue, 15 Nov 2022 12:16:07 GMT</pubDate>
+        </item>
+        <item>
+            <title>How the world got to 8 billion people - and where next</title>
+            <description>Watch the BBC's Stephanie Hegarty explain the past, present and future of global population.</description>
+            <link>https://www.bbc.co.uk/news/world-63624651?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-63624651</guid>
+            <pubDate>Mon, 14 Nov 2022 23:30:37 GMT</pubDate>
+        </item>
+        <item>
+            <title>Watch: Zero-Covid curbs sparks unrest in Guangzhou</title>
+            <description>Protesters overturn a police car and tear down Covid control barriers.</description>
+            <link>https://www.bbc.co.uk/news/world-asia-china-63636363?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-asia-china-63636363</guid>
+            <pubDate>Tue, 15 Nov 2022 11:09:06 GMT</pubDate>
+        </item>
+        <item>
+            <title>Princess Anne and Prince Edward to become stand-ins for King</title>
+            <description>The King requests extra stand-ins, as Prince Andrew and Prince Harry are no longer working royals.</description>
+            <link>https://www.bbc.co.uk/news/uk-63626113?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/uk-63626113</guid>
+            <pubDate>Tue, 15 Nov 2022 16:13:44 GMT</pubDate>
+        </item>
+        <item>
+            <title>Timed Teaser: What did Melania Trump's former lawyer do?</title>
+            <description>Test your knowledge of the news these last few days - 10 questions, 10 seconds each. Go!</description>
+            <link>https://www.bbc.co.uk/news/world-us-canada-63584818?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-us-canada-63584818</guid>
+            <pubDate>Mon, 14 Nov 2022 19:49:31 GMT</pubDate>
+        </item>
+        <item>
+            <title>Ros Atkins on… How Qatar got to host the World Cup</title>
+            <description>BBC Analysis Editor Ros Atkins looks at the years of corruption allegations around Fifa awarding the 2022 World Cup to Qatar.</description>
+            <link>https://www.bbc.co.uk/news/world-63611745?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-63611745</guid>
+            <pubDate>Sun, 13 Nov 2022 11:41:58 GMT</pubDate>
+        </item>
+        <item>
+            <title>The moment crowds run from Istanbul explosion</title>
+            <description>Emergency services have arrived at the scene of a blast in the Turkish city Istanbul.</description>
+            <link>https://www.bbc.co.uk/news/world-europe-63613573?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-europe-63613573</guid>
+            <pubDate>Sun, 13 Nov 2022 15:12:04 GMT</pubDate>
+        </item>
+        <item>
+            <title>People rescued from cars after floods hit Valencia, Spain</title>
+            <description>Firefighters helped people who were trapped after heavy rain in Valencia.</description>
+            <link>https://www.bbc.co.uk/news/world-europe-63611746?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-europe-63611746</guid>
+            <pubDate>Sat, 12 Nov 2022 22:34:19 GMT</pubDate>
+        </item>
+        <item>
+            <title>King leads UK Remembrance Sunday ceremony</title>
+            <description>A two-minute silence across the UK at 11:00 GMT honoured servicemen and women lost in past conflicts.</description>
+            <link>https://www.bbc.co.uk/news/uk-63613568?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/uk-63613568</guid>
+            <pubDate>Sun, 13 Nov 2022 13:34:28 GMT</pubDate>
+        </item>
+        <item>
+            <title>Ros Atkins on... Is the 1.5C climate target still possible?</title>
+            <description>The BBC's analysis editor looks at whether the UN's target to limit global warming can still be reached.</description>
+            <link>https://www.bbc.co.uk/news/science-environment-63607627?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/science-environment-63607627</guid>
+            <pubDate>Sat, 12 Nov 2022 15:16:23 GMT</pubDate>
+        </item>
+        <item>
+            <title>Man discovers bud had been lodged in his ear for five years</title>
+            <description>Wallace Lee says he feared he was going deaf before the small white object was finally removed.</description>
+            <link>https://www.bbc.co.uk/news/uk-england-dorset-63599329?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/uk-england-dorset-63599329</guid>
+            <pubDate>Sat, 12 Nov 2022 07:16:00 GMT</pubDate>
+        </item>
+        <item>
+            <title>COP27: Can Thailand floating solar farm help country hit climate goals?</title>
+            <description>The floating solar farm in Ubon Ratchatani province is the size of 70 football pitches.</description>
+            <link>https://www.bbc.co.uk/news/world-asia-63595541?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-asia-63595541</guid>
+            <pubDate>Sun, 13 Nov 2022 00:47:41 GMT</pubDate>
+        </item>
+        <item>
+            <title>Ukraine forces receive rapturous welcome in Kherson</title>
+            <description>Footage from social media shows a Ukrainian soldier shouting "Greetings from Kherson".</description>
+            <link>https://www.bbc.co.uk/news/world-europe-63607628?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-europe-63607628</guid>
+            <pubDate>Sat, 12 Nov 2022 14:22:49 GMT</pubDate>
+        </item>
+        <item>
+            <title>Remembrance: Finding the faces of forgotten comrades</title>
+            <description>Brian Hough was only 18 when he fought in the Korean War but 70 years on he's trying to keep the memory of fallen soldiers alive.</description>
+            <link>https://www.bbc.co.uk/news/world-63601916?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-63601916</guid>
+            <pubDate>Sun, 13 Nov 2022 00:01:09 GMT</pubDate>
+        </item>
+        <item>
+            <title>Week in pictures: 5 - 11 November 2022</title>
+            <description>A selection of powerful images from all over the globe, taken in the past seven days.</description>
+            <link>https://www.bbc.co.uk/news/in-pictures-63584441?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/in-pictures-63584441</guid>
+            <pubDate>Sat, 12 Nov 2022 00:30:44 GMT</pubDate>
+        </item>
+        <item>
+            <title>Who will pay for Indonesia's clean energy bill?</title>
+            <description>The G20 is expected to unveil a climate deal to speed up Indonesia's transition to clean energy.</description>
+            <link>https://www.bbc.co.uk/news/world-asia-63619533?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-asia-63619533</guid>
+            <pubDate>Tue, 15 Nov 2022 00:13:24 GMT</pubDate>
+        </item>
+        <item>
+            <title>COP27: Without Greta, activists make waves at climate summit</title>
+            <description>Young campaigners say they are calling out "greenwashing" at COP27 from the inside.</description>
+            <link>https://www.bbc.co.uk/news/science-environment-63599932?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/science-environment-63599932</guid>
+            <pubDate>Tue, 15 Nov 2022 00:05:45 GMT</pubDate>
+        </item>
+        <item>
+            <title>Jacqueline Fernandez: The Bollywood actress caught up in a 'gifts scandal'</title>
+            <description>An Indian court grants bail to Jacqueline Fernandez who is being investigated in a case of money laundering.</description>
+            <link>https://www.bbc.co.uk/news/world-asia-india-63622908?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-asia-india-63622908</guid>
+            <pubDate>Tue, 15 Nov 2022 11:22:09 GMT</pubDate>
+        </item>
+        <item>
+            <title>Somalia drought: One boy's fight to save his family from starvation</title>
+            <description>Dahir's brother died of hunger. Now two of his sisters are fighting sickness and malnutrition in Somalia.</description>
+            <link>https://www.bbc.co.uk/news/world-africa-63597221?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-africa-63597221</guid>
+            <pubDate>Tue, 15 Nov 2022 00:08:38 GMT</pubDate>
+        </item>
+        <item>
+            <title>What to do with 18 shipping containers of rotting cabbages</title>
+            <description>The cargo salvage industry has a key role in global trade by dealing with unwanted containers.</description>
+            <link>https://www.bbc.co.uk/news/business-62979352?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/business-62979352</guid>
+            <pubDate>Tue, 15 Nov 2022 00:02:33 GMT</pubDate>
+        </item>
+        <item>
+            <title>Can the UK-France crackdown on Channel smugglers work?</title>
+            <description>There is no silver bullet, the UK says - but resources on the French coastline are having some effect.</description>
+            <link>https://www.bbc.co.uk/news/world-europe-63628579?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-europe-63628579</guid>
+            <pubDate>Mon, 14 Nov 2022 17:40:43 GMT</pubDate>
+        </item>
+        <item>
+            <title>Istiklal Street: Istanbul's beating heart reels from deadly blast</title>
+            <description>Locals are returning to Istiklal Street, the busy thoroughfare where six were killed on Sunday.</description>
+            <link>https://www.bbc.co.uk/news/world-europe-63621424?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-europe-63621424</guid>
+            <pubDate>Mon, 14 Nov 2022 09:49:00 GMT</pubDate>
+        </item>
+        <item>
+            <title>G20: What will leaders talk about at the Bali summit?</title>
+            <description>As world leaders prepare to meet for the G20 summit in Bali, what is likely to be on the agenda?</description>
+            <link>https://www.bbc.co.uk/news/world-48776664?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-48776664</guid>
+            <pubDate>Thu, 10 Nov 2022 11:01:47 GMT</pubDate>
+        </item>
+        <item>
+            <title>'Digital newsletters really humanise you to your readers'</title>
+            <description>The young authors connecting with their followers via weekly digital updates.</description>
+            <link>https://www.bbc.co.uk/news/business-63565577?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/business-63565577</guid>
+            <pubDate>Mon, 14 Nov 2022 00:03:21 GMT</pubDate>
+        </item>
+        <item>
+            <title>World Cup 2022: Senegal's Sadio Mane out of 'first games' in Qatar</title>
+            <description>Sadio Mane will miss Senegal's "first games" at the World Cup because of a leg injury, an official from the country's football federation has said.</description>
+            <link>https://www.bbc.co.uk/sport/africa/63640205?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/sport/africa/63640205</guid>
+            <pubDate>Tue, 15 Nov 2022 15:51:02 GMT</pubDate>
+        </item>
+        <item>
+            <title>ATP Finals: Rafael Nadal beaten by Felix Auger-Aliassime in Turin</title>
+            <description>Rafael Nadal's hopes of a first ATP Finals title take a blow after he was beaten 6-3 6-4 by Felix Auger-Aliassime in Turin on Tuesday.</description>
+            <link>https://www.bbc.co.uk/sport/tennis/63641154?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/sport/tennis/63641154</guid>
+            <pubDate>Tue, 15 Nov 2022 17:23:32 GMT</pubDate>
+        </item>
+        <item>
+            <title>Faf du Plessis was 'jealous' of AB de Villiers & labels David Warner a 'bully'</title>
+            <description>Former South Africa captain Faf du Plessis says he was "jealous" of AB de Villiers and labels David Warner a "bully" in his new book.</description>
+            <link>https://www.bbc.co.uk/sport/cricket/63571811?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/sport/cricket/63571811</guid>
+            <pubDate>Tue, 15 Nov 2022 09:09:16 GMT</pubDate>
+        </item>
+        <item>
+            <title>World Cup 2022: Cristiano Ronaldo 'always happy' with Portugal, says team-mate Joao Mario</title>
+            <description>Cristiano Ronaldo is "always happy" on international duty despite his problems at club level, insists Portugal team-mate Joao Mario.</description>
+            <link>https://www.bbc.co.uk/sport/football/63634556?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/sport/football/63634556</guid>
+            <pubDate>Tue, 15 Nov 2022 14:36:34 GMT</pubDate>
+        </item>
+        <item>
+            <title>NFL: Philadelphia Eagles have unbeaten run ended by Washington Commanders</title>
+            <description>The Philadelphia Eagles' unbeaten start to the NFL season is ended by a 32-21 defeat against the Washington Commanders.</description>
+            <link>https://www.bbc.co.uk/sport/american-football/63632700?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/sport/american-football/63632700</guid>
+            <pubDate>Tue, 15 Nov 2022 07:45:36 GMT</pubDate>
+        </item>
+        <item>
+            <title>Why did Zelensky want a watermelon in Kherson?</title>
+            <description>Since Russia's retreat from the region memes of the fruit have been widely shared online.</description>
+            <link>https://www.bbc.co.uk/news/world-europe-63624456?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-europe-63624456</guid>
+            <pubDate>Mon, 14 Nov 2022 20:11:02 GMT</pubDate>
+        </item>
+        <item>
+            <title>Ukraine war: Wagner chief Prigozhin defends brutal killing video</title>
+            <description>Putin ally Yevgeny Prigozhin says a defector to Ukraine died "a dog's death for a dog".</description>
+            <link>https://www.bbc.co.uk/news/world-europe-63623285?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-europe-63623285</guid>
+            <pubDate>Mon, 14 Nov 2022 15:12:28 GMT</pubDate>
+        </item>
+        <item>
+            <title>Ukraine war: Russian activist writes letters from jail</title>
+            <description>Russian activist Vladimir Kara-Murza, charged with treason, writes to the BBC from his jail cell.</description>
+            <link>https://www.bbc.co.uk/news/world-europe-63597097?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-europe-63597097</guid>
+            <pubDate>Mon, 14 Nov 2022 00:38:36 GMT</pubDate>
+        </item>
+        <item>
+            <title>Kherson: Inside the city liberated from the Russians</title>
+            <description>The BBC's Jeremy Bowen reports from the city newly liberated from Russian control.</description>
+            <link>https://www.bbc.co.uk/news/world-europe-63615008?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-europe-63615008</guid>
+            <pubDate>Sun, 13 Nov 2022 11:50:35 GMT</pubDate>
+        </item>
+        <item>
+            <title>Banksy unveils Ukraine gymnast mural on building shelled by Russia</title>
+            <description>The anonymous graffiti artist paints murals on buildings destroyed by Russian artillery attacks.</description>
+            <link>https://www.bbc.co.uk/news/world-europe-63606658?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-europe-63606658</guid>
+            <pubDate>Sat, 12 Nov 2022 04:57:30 GMT</pubDate>
+        </item>
+        <item>
+            <title>Watch: Ukraine's recapture of Kherson, in under a minute</title>
+            <description>Russia withdrew 30,000 troops from the region, Moscow officials say.</description>
+            <link>https://www.bbc.co.uk/news/world-europe-63605025?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-europe-63605025</guid>
+            <pubDate>Fri, 11 Nov 2022 20:31:49 GMT</pubDate>
+        </item>
+        <item>
+            <title>US midterm elections results: How the parties are doing in maps and charts</title>
+            <description>Analysis of key races, issues and exit poll findings in the US midterm elections.</description>
+            <link>https://www.bbc.co.uk/news/world-us-canada-63556122?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-us-canada-63556122</guid>
+            <pubDate>Tue, 15 Nov 2022 13:03:07 GMT</pubDate>
+        </item>
+        <item>
+            <title>Ron DeSantis: How the Republican governor conquered Florida</title>
+            <description>Florida used to be a swing state but no longer. Led by its governor, victory was comprehensive. How?</description>
+            <link>https://www.bbc.co.uk/news/world-us-canada-63565224?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-us-canada-63565224</guid>
+            <pubDate>Fri, 11 Nov 2022 23:58:21 GMT</pubDate>
+        </item>
+        <item>
+            <title>US midterms: Why a Republican 'wave' never happened</title>
+            <description>Economic concerns and Joe Biden's disapproval rating failed to deliver the results that Republicans hoped for.</description>
+            <link>https://www.bbc.co.uk/news/world-us-canada-63569850?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-us-canada-63569850</guid>
+            <pubDate>Wed, 09 Nov 2022 20:21:16 GMT</pubDate>
+        </item>
+        <item>
+            <title>US midterm elections: More female governors than ever elected</title>
+            <description>These officials have enormous power, as many aspects of American life are decided at the state level.</description>
+            <link>https://www.bbc.co.uk/news/world-us-canada-63564060?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-us-canada-63564060</guid>
+            <pubDate>Thu, 10 Nov 2022 17:40:12 GMT</pubDate>
+        </item>
+        <item>
+            <title>Kari Lake: Interviewing the election denier who ran for Arizona governor</title>
+            <description>The TV anchor turned Trump-backed candidate is good at delivering a message. But does she believe in it?</description>
+            <link>https://www.bbc.co.uk/news/world-us-canada-63593153?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-us-canada-63593153</guid>
+            <pubDate>Tue, 15 Nov 2022 02:51:45 GMT</pubDate>
+        </item>
+        <item>
+            <title>US election: Trump tears into rising Republican rival DeSantis</title>
+            <description>The ex-president slams his former political apprentice as an "average" governor, lacking in "loyalty".</description>
+            <link>https://www.bbc.co.uk/news/world-us-canada-63593457?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-us-canada-63593457</guid>
+            <pubDate>Fri, 11 Nov 2022 15:51:43 GMT</pubDate>
+        </item>
+        <item>
+            <title>Midterm elections results: This is where the races stand</title>
+            <description>Control of Congress remains in the balance as the final results of the 2022 midterms trickle in.</description>
+            <link>https://www.bbc.co.uk/news/world-us-canada-63586485?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-us-canada-63586485</guid>
+            <pubDate>Sat, 12 Nov 2022 12:13:35 GMT</pubDate>
+        </item>
+        <item>
+            <title>Georgia run-off election: Ready to switch off from politics? Not here</title>
+            <description>Three days after the US voted, most of America is ready to switch off from politics. That's not an option in Georgia.</description>
+            <link>https://www.bbc.co.uk/news/world-us-canada-63587652?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-us-canada-63587652</guid>
+            <pubDate>Fri, 11 Nov 2022 15:28:02 GMT</pubDate>
+        </item>
+        <item>
+            <title>US elections: John Fetterman's victory in Pennsylvania boosts Democrats</title>
+            <description>John Fetterman overcame a stroke to beat a TV doctor who had Donald Trump's fulsome support on Pennsylvania.</description>
+            <link>https://www.bbc.co.uk/news/world-us-canada-63576321?at_medium=RSS&amp;at_campaign=KARANGA</link>
+            <guid isPermaLink="false">https://www.bbc.co.uk/news/world-us-canada-63576321</guid>
+            <pubDate>Thu, 10 Nov 2022 03:14:09 GMT</pubDate>
+        </item>
+    </channel>
+</rss>

@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "hashset.h": "c",
+        "string.h": "c"
+    }
+}
