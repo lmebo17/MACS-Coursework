@@ -1,0 +1,36 @@
+class Main {
+    function void main() {
+        var long steps;
+        var long i;
+        var Game game;
+        
+        
+        let game = Game.new();
+        let i = 1;
+
+        while(true){
+            do Output.moveCursor(0,0);
+            let steps = game.start();
+            let i = i + 1;
+            
+            do Output.moveCursor(0, 0);
+            do Main.log(steps);
+            do Sys.wait(1000);
+            
+            do Output.printString("Press any key to restart the game!");
+            do Keyboard.readChar();
+        }
+
+        return;
+    }
+
+    function void log(int steps){
+        do Output.printString("On this simulation Ant took ");
+        do Output.printInt(steps);
+        do Output.printString(" steps. ");
+        do Output.println();
+        return;
+    }
+
+    
+}

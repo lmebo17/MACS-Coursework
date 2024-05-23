@@ -1,0 +1,57 @@
+class Ant{
+
+    // 0 = north, 1 = east, 2 = south, 3 = west
+
+    field int x, y, direction;
+
+    constructor Ant new(int ant_x, int ant_y, int ant_d){
+        let x = ant_x;
+        let y = ant_y;
+        let direction = ant_d;
+        return this;
+    }
+
+
+    method int getX(){
+        return x;
+    }
+
+    method int getY(){
+        return y;
+    }
+
+
+    method void moveInDirection(int width, int height){
+        if(direction = 0){
+            let y = MyMath.mod(y + height - 1, height);
+        }
+        if(direction = 1){
+            let x = MyMath.mod(x + 1, width);
+        }
+        if(direction = 2){
+            let y = MyMath.mod(y + 1, height);
+        }
+        if(direction = 3){
+            let x = MyMath.mod(x + width - 1, width);
+        }
+        return;
+    }
+
+    method void move(int color, World world){
+        var int width, height;
+
+        let width = world.getWidth();
+        let height = world.getHeight();
+
+        if(color = 0){
+            let direction = MyMath.mod(direction + 1, 4);
+        } else {
+            let direction = MyMath.mod(direction + 3, 4);
+        }
+
+        do moveInDirection(width, height);
+        return;
+    }
+    
+
+}

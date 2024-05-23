@@ -1,0 +1,109 @@
+class Game{
+
+    field World world;
+    field Ant ant;
+    field int number_of_steps;
+
+
+    constructor Game new(){
+        let world = World.new(512, 256);
+        let number_of_steps = 0;
+        return this;
+    }
+
+
+    method int getInput(string text, int lower_bound, int upper_bound){
+        var int ans, random_number;
+
+        do Output.printString("If you want to generate random condition, enter -1");
+        do Output.println();
+        do Output.printString(text);
+        do Sys.wait(1);
+
+        let random_number = MyMath.random();
+        let random_number = MyMath.mod(random_number, upper_bound + 1);
+
+        let ans = Keyboard.readInt("");
+        
+        if(ans = -1){
+            let ans = random_number;
+            do Output.printString("Randomly generated: ");
+            do Output.printInt(ans);
+            do Output.println();
+        }
+
+        return ans;
+    
+    }
+    
+    method int getInitialCondition(string text, int lower_bound, int upper_bound){
+        var int condition;
+        let condition = -1;
+
+        while((condition < lower_bound) | (condition > upper_bound)){
+            do Output.printString("Please enter a valid number");
+            do Output.println();
+            let condition = getInput(text, lower_bound, upper_bound);
+        }
+        return condition;
+
+    }
+
+
+    method int start(){
+        var int x, y, direction;
+        do world.clear();
+        let x = getInitialCondition("x: ", 0, 512);
+        let y = getInitialCondition("y: ", 0, 256);
+        let direction = getInitialCondition("Enter initial direction (0 = north, 1 = east, 2 = south, 3 = west): ", 0, 3);
+        do Sys.wait(1000);
+        let ant = Ant.new(x, y, direction);
+
+        return runSimulation();
+    }
+
+
+    method int runSimulation(){
+        var boolean paused, playing;
+        var int key, last_key;
+        var int x, y, color;
+
+        do world.clear();
+        
+        let number_of_steps = 0;
+        let paused = true;
+        let playing = true;
+
+        let key = 0;
+        let last_key = 0;
+
+        while(playing){
+            let key = Keyboard.keyPressed();
+            
+            if(key = 82){
+                let playing = false;
+            }  
+            
+            if(last_key = 0 & key = 32){
+                let paused = ~paused;
+            }
+
+            let last_key = key;
+
+
+            if(~paused & playing){
+                let x = ant.getX();
+                let y = ant.getY();
+
+                let color = world.getColor(x, y);
+                do world.changeColor(x, y);
+                
+                do ant.move(color, world);
+                let number_of_steps = number_of_steps + 1;
+
+            }
+            
+        }
+        return number_of_steps;
+    }
+}

@@ -1,0 +1,61 @@
+class World{
+
+    field int width, height;
+
+    constructor World new(int new_width, int new_height){
+        let width = new_width;
+        let height = new_height;
+        return this;
+    }
+
+
+    method void clear(){
+        do Screen.clearScreen();
+        return;
+    }
+
+    method int getColor(int x, int y){
+        var int address, value, tmp, bit, power;
+
+        let tmp = Math.divide(x, 16);
+        let address = Math.multiply(y, 32) + tmp;
+
+        let value = Memory.peek(16384 + address);
+
+        let bit = MyMath.mod(x, 16);
+
+        let power = MyMath.pow(bit);
+
+        return value & power;
+    }
+
+    method void changeColor(int x, int y){
+        var int current_color, color, bit, power;
+
+        let current_color = getColor(x, y);
+
+        let bit = MyMath.mod(x, 16);
+        let power = MyMath.pow(bit);
+
+        let color = current_color & power;
+
+        if (color = 0) {
+            do Screen.setColor(true);
+            do Screen.drawPixel(x, y);
+        } else {
+            do Screen.setColor(false);
+            do Screen.drawPixel(x, y);
+        }    
+        return;
+    }
+
+
+    method int getWidth(){
+        return width;
+    }
+
+    method int getHeight(){
+        return height;
+    }
+    
+}

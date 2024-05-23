@@ -1,0 +1,40 @@
+class MyMath{
+    constructor MyMath new(){
+        return this;
+    }
+
+
+    function int mod(int x, int y) {
+        var int c;
+        
+        let c = Math.divide(x, y);
+        return x - Math.multiply(c,y);
+    }
+
+    function int random(){
+        var int rand;
+        let rand = 0;
+        while(Keyboard.keyPressed() = 0){
+            let rand = rand + 1;
+        }
+
+        return Math.abs(rand);
+    }
+
+
+    function int pow(int r) {
+        var int power, it;
+        
+        let power = 1;
+        let it = 0;
+        while (it < r) {
+            let it = it + 1;
+            let power = Math.multiply(power, 2);
+        }
+
+        return power;
+    }
+
+
+
+}
