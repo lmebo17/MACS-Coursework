@@ -1,1 +1,3 @@
-All of my CS university coursework. @FreeUniversityOfTbili
+MACS
+All of my CS university coursework
+@FreeUniversityOfTbilisi
