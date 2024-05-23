@@ -1,0 +1,112 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/5/CPU.hdl
+/**
+ * The Hack Central Processing unit (CPU).
+ * Parses the binary code in the instruction input and executes it according to the
+ * Hack machine language specification. In the case of a C-instruction, computes the
+ * function specified by the instruction. If the instruction specifies to read a memory
+ * value, the inM input is expected to contain this value. If the instruction specifies
+ * to write a value to the memory, sets the outM output to this value, sets the addressM
+ * output to the target address, and asserts the writeM output (when writeM = 0, any
+ * value may appear in outM).
+ * If the reset input is 0, computes the address of the next instruction and sets the
+ * pc output to that value. If the reset input is 1, sets pc to 0.
+ * Note: The outM and writeM outputs are combinational: they are affected by the
+ * instruction's execution during the current cycle. The addressM and pc outputs are
+ * clocked: although they are affected by the instruction's execution, they commit to
+ * their new values only in the next cycle.
+ */
+
+CHIP CPU {
+
+    IN  inM[16],         // M value input  (M = contents of RAM[A])
+        instruction[16], // Instruction for execution
+        reset;           // Signals whether to re-start the current
+                         // program (reset==1) or continue executing
+                         // the current program (reset==0).
+
+    OUT outM[16],        // M value output
+        writeM,          // Write to M? 
+        addressM[15],    // Address in data memory (of M)
+        pc[15];          // address of next instruction
+
+    PARTS:
+	// start Mux16 tan rac xdeba
+    Mux16(a=instruction, b=ALUoutput, sel=instruction[15], out=ARegisterIn);
+
+    // instruction[5] unda chiweros Aregistreshi
+    
+    Not (in=instruction[15], out=Ainstruction);
+	Or (a=Ainstruction, b=instruction[5], out=loadA);
+    
+    ARegister(in=ARegisterIn, load=loadA, out=ARegisterOut, out[0..14]=addressM);
+
+    // instruction[4] unda chaiweros D registrshi
+    And (a=instruction[4], b=instruction[15], out=loadD);
+    DRegister(in=ALUoutput, load=loadD, out=DRegisterOut);
+
+    // Mux16 alustvis
+
+    Mux16(a=ARegisterOut, b=inM, sel=instruction[12], out=ALUinput);
+
+    // alu
+    ALU (x=DRegisterOut, y=ALUinput, zx=instruction[11], nx=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], no=instruction[6],
+		out=ALUoutput, out=outM, zr=zr, ng=ng);
+
+    And(a=instruction[15], b=instruction[3], out=writeM); 
+    // instruction[0] = j1
+    // instruction[1] = j2
+    // instruction[2] = j3
+
+    And(a=instruction[2], b=instruction[2], out=j1);
+    And(a=instruction[1], b=instruction[1], out=j2);
+    And(a=instruction[0], b=instruction[0], out=j3);
+
+    Not(in=j1, out=notJ1);
+    Not(in=j2, out=notJ2);
+    Not(in=j3, out=notJ3);
+
+    Not(in=zr, out=notZR);
+    Not(in=ng, out=notNG);
+
+    // JGT
+    And(a=notJ1, b=notJ2, out=notJ1andNotJ2);
+    And(a=notJ1andNotJ2, b=j3, out=JGT);
+    // zr = 0 ng = 0
+    And(a=notZR, b=notNG, out=pos);
+    And(a=JGT, b=pos, out=doJGT);
+    
+    // JEQ
+    And(a=notJ1, b=j2, out=notJ1andJ2);
+    And(a=notJ1andJ2, b=notJ3, out=JEQ);
+    And(a=zr, b=JEQ, out=doJEQ);
+
+    // JGE
+    And(a=notJ1andJ2, b=j3, out=JGE);
+    And(a=notNG, b=JGE, out=doJGE);
+
+    // JLT
+    And(a=j1, b=notJ2, out=J1andNotJ2);
+    And(a=J1andNotJ2, b=notJ3, out=JLT);
+    And(a=ng, b=JLT, out=doJLT);
+
+    // JNE
+    And(a=J1andNotJ2, b=j3, out=JNE);
+    And(a=notZR, b=JNE, out=doJNE);
+
+    // JLE
+    And(a=j1, b=j2, out=J1andJ2);
+    And(a=J1andJ2, b=notJ3, out=JLE);
+    Not(in=pos, out=notPos);
+    And(a=notPos, b=JLE, out=doJLE);
+
+    // JMP
+    And(a=J1andJ2, b=j3, out=JMP);
+
+    Or8Way(in[0]=false, in[1]=doJGT, in[2]=doJEQ, in[3]=doJGE, in[4]=doJLT, in[5]=doJNE, in[6]=doJLE, in[7]=JMP, out=jump);
+    And(a=instruction[15], b=jump, out=doJMP);
+
+    PC(in=ARegisterOut, load=doJMP, inc=true, reset=reset, out[0..14]=pc);
+}
