@@ -1,56 +1,78 @@
 class Constants:
-    KEYWORD = 'KEYWORD'
-    SYMBOL = 'SYMBOL'
-    IDENTIFIER = 'IDENTIFIER'
-    INT_CONST = 'INT_CONST'
-    STRING_CONST = 'STRING_CONST'
+    KEYWORD = "keyword"
+    SYMBOL = "symbol"
+    IDENTIFIER = "identifier"
+    INT_CONST = "integerConstant"
+    STRING_CONST = "stringConstant"
 
-    CLASS = 'CLASS'
-    METHOD = 'METHOD'
-    FUNCTION = 'FUNCTION'
-    CONSTRUCTOR = 'CONSTRUCTOR'
-    INT = 'INT'
-    BOOLEAN = 'BOOLEAN'
-    CHAR = 'CHAR'
-    VOID = 'VOID'
-    VAR = 'VAR'
-    STATIC = 'STATIC'
-    FIELD = 'FIELD'
-    LET = 'LET'
-    DO = 'DO'
-    IF = 'IF'
-    ELSE = 'ELSE'
-    WHILE = 'WHILE'
-    RETURN = 'RETURN'
-    TRUE = 'TRUE'
-    FALSE = 'FALSE'
-    NULL = 'NULL'
-    THIS = 'THIS'
+    CLASS = "CLASS"
+    METHOD = "METHOD"
+    FUNCTION = "FUNCTION"
+    CONSTRUCTOR = "CONSTRUCTOR"
+    INT = "INT"
+    BOOLEAN = "BOOLEAN"
+    CHAR = "CHAR"
+    VOID = "VOID"
+    VAR = "VAR"
+    STATIC = "STATIC"
+    FIELD = "FIELD"
+    LET = "LET"
+    DO = "DO"
+    IF = "IF"
+    ELSE = "ELSE"
+    WHILE = "WHILE"
+    RETURN = "RETURN"
+    TRUE = "TRUE"
+    FALSE = "FALSE"
+    NULL = "NULL"
+    THIS = "THIS"
 
     keywords = {
-        "class": CLASS,
-        "constructor": CONSTRUCTOR,
-        "function": FUNCTION,
-        "method": METHOD,
-        "field": FIELD,
-        "static": STATIC,
-        "var": VAR,
-        "int": INT,
-        "char": CHAR,
-        "boolean": BOOLEAN,
-        "void": VOID,
-        "true": TRUE,
-        "false": FALSE,
-        "null": NULL,
-        "this": THIS,
-        "let": LET,
-        "do": DO,
-        "if": IF,
-        "else": ELSE,
-        "while": WHILE,
-        "return": RETURN,
+        "class": "class",
+        "constructor": "constructor",
+        "function": "function",
+        "method": "method",
+        "field": "field",
+        "static": "static",
+        "var": "var",
+        "int": "int",
+        "char": "char",
+        "boolean": "boolean",
+        "void": "void",
+        "true": "true",
+        "false": "false",
+        "null": "null",
+        "this": "this",
+        "let": "let",
+        "do": "do",
+        "if": "if",
+        "else": "else",
+        "while": "while",
+        "return": "return",
     }
 
     symbols = [
-        "{", "}", "(", ")", "[", "]", ".", ",", ";", "+", "-", "*", "/", "&", "|", "<", ">", "=", "~"
+        "{",
+        "}",
+        "(",
+        ")",
+        "[",
+        "]",
+        ".",
+        ",",
+        ";",
+        "+",
+        "-",
+        "*",
+        "/",
+        "&",
+        "|",
+        "<",
+        ">",
+        "=",
+        "~",
     ]
+
+    operations = ["+", "-", "/", "*", ">", "<", "=", "&", "|"]
+
+    symbol_escape_mapping = {"<": "&lt;", ">": "&gt;", "&": "&amp;"}
