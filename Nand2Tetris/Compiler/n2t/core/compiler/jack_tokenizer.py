@@ -1,60 +1,5 @@
+from n2t.core.compiler.constants import *
 class JackTokenizer:
-    KEYWORD = 'KEYWORD'
-    SYMBOL = 'SYMBOL'
-    IDENTIFIER = 'IDENTIFIER'
-    INT_CONST = 'INT_CONST'
-    STRING_CONST = 'STRING_CONST'
-
-    CLASS = 'CLASS'
-    METHOD = 'METHOD'
-    FUNCTION = 'FUNCTION'
-    CONSTRUCTOR = 'CONSTRUCTOR'
-    INT = 'INT'
-    BOOLEAN = 'BOOLEAN'
-    CHAR = 'CHAR'
-    VOID = 'VOID'
-    VAR = 'VAR'
-    STATIC = 'STATIC'
-    FIELD = 'FIELD'
-    LET = 'LET'
-    DO = 'DO'
-    IF = 'IF'
-    ELSE = 'ELSE'
-    WHILE = 'WHILE'
-    RETURN = 'RETURN'
-    TRUE = 'TRUE'
-    FALSE = 'FALSE'
-    NULL = 'NULL'
-    THIS = 'THIS'
-
-    keywords = {
-        "class": CLASS,
-        "constructor": CONSTRUCTOR,
-        "function": FUNCTION,
-        "method": METHOD,
-        "field": FIELD,
-        "static": STATIC,
-        "var": VAR,
-        "int": INT,
-        "char": CHAR,
-        "boolean": BOOLEAN,
-        "void": VOID,
-        "true": TRUE,
-        "false": FALSE,
-        "null": NULL,
-        "this": THIS,
-        "let": LET,
-        "do": DO,
-        "if": IF,
-        "else": ELSE,
-        "while": WHILE,
-        "return": RETURN,
-    }
-
-    symbols = [
-        "{", "}", "(", ")", "[", "]", ".", ",", ";", "+", "-", "*", "/", "&", "|", "<", ">", "=", "~"
-    ]
-
     def __init__(self, input_file):
         file = open(input_file, 'r')
         self.input_lines = file.readlines()
@@ -112,22 +57,22 @@ class JackTokenizer:
         if self.current_token is None:
             return None
 
-        if self.current_token in self.keywords:
-            return self.KEYWORD
+        if self.current_token in Constants.keywords:
+            return Constants.KEYWORD
 
-        if self.current_token in self.symbols:
-            return self.SYMBOL
+        if self.current_token in Constants.symbols:
+            return Constants.SYMBOL
 
         if self.current_token.isdigit():
-            return self.INT_CONST
+            return Constants.INT_CONST
 
         if self.current_token.startswith('"') and self.current_token.endswith('"'):
-            return self.STRING_CONST
+            return Constants.STRING_CONST
 
-        return self.IDENTIFIER
+        return Constants.IDENTIFIER
 
     def keyword(self):
-        return self.keywords[self.current_token]
+        return Constants.keywords[self.current_token]
 
     def symbol(self):
         return self.current_token
