@@ -1,0 +1,140 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/12/String.jack
+/**
+ * Represents character strings. In addition for constructing and disposing
+ * strings, the class features methods for getting and setting individual
+ * characters of the string, for erasing the string's last character,
+ * for appending a character to the string's end, and more typical
+ * string-oriented operations.
+ */
+class String {
+
+    field int length, maxlength;
+    field Array chars;
+
+
+    constructor String new(int maxLength) {
+        if(maxLength = 0){
+           let maxLength = 1;   
+        }
+        let maxlength = maxLength;
+        let length = 0;
+        let chars = Array.new(maxLength);
+        return this;
+    
+    }
+
+    /** Disposes this string. */
+    method void dispose() {
+        do chars.dispose();
+        return;
+    }
+
+    /** Returns the current length of this string. */
+    method int length() {
+        return length;
+    }
+
+    /** Returns the character at the j-th location of this string. */
+    method char charAt(int j) {
+        return chars[j];
+    }
+
+    /** Sets the character at the j-th location of this string to c. */
+    method void setCharAt(int j, char c) {
+        let chars[j] = c;
+        return;
+    }
+
+    /** Appends c to this string's end and returns this string. */
+    method String appendChar(char c) {
+         if(length < maxlength){
+            let chars[length] = c;
+            let length = length + 1;
+        }
+        return this;
+    }
+
+    /** Erases the last character from this string. */
+    method void eraseLastChar() {
+        if (length > 0) {
+            let length = length - 1;
+        }
+        return;
+    }
+
+    method int intValue() {
+        var int result,i, flag;
+        var boolean pos;
+
+        let result = 0;
+
+
+        if(chars[0] = 45){
+            let pos = false;
+        } else {
+            let pos = true;
+        }
+
+        if(~pos){
+            let i = i + 1;
+        }
+
+        let flag = chars[i];
+
+        while((i < maxlength) & (~(flag < 48) & ~(flag > 57))){
+            let result = (result * 10) + flag - 48;
+            let i = i + 1;
+            let flag = chars[i];
+        }
+
+        if(pos){
+            return result;
+        }else{
+            return -result;
+        }
+
+    }
+
+    method void setInt(int number) {
+        let length = 0;
+
+        if(number < 0){
+            let number = -number;
+            do appendChar(45);
+        }
+
+        do setIntWrapper(number);
+
+        return;
+    }
+
+    method void setIntWrapper(int number){
+        var int nextNumber, lastNumber;
+
+        if(number > 10){
+            let nextNumber = number / 10;
+            let lastNumber = number - (nextNumber * 10);
+            do setIntWrapper(nextNumber);
+            do appendChar(lastNumber + 48);
+        } else {
+            do appendChar(number + 48);
+        }
+
+        return;
+    }
+
+    function char newLine() {
+       return 128;
+    }
+
+    function char backSpace() {
+       return 129;
+    }
+
+    function char doubleQuote() {
+       return 34;
+    }
+}

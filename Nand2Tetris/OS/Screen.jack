@@ -1,0 +1,135 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/12/Screen.jack
+/**
+ * A library of functions for displaying graphics on the screen.
+ * The Hack physical screen consists of 512 rows (indexed 0..511, top to bottom)
+ * of 256 pixels each (indexed 0..255, left to right). The top left pixel on 
+ * the screen is indexed (0,0).
+ */
+class Screen {
+    static Array powersOfTwo, screen;
+    static boolean color;
+
+    /** Initializes the Screen. */
+    function void init() {
+        var int i;
+
+        let powersOfTwo = Array.new(16);
+        let powersOfTwo[0] = 1;
+
+        let i = 1;
+        while (i < 16) {
+            let powersOfTwo[i] = powersOfTwo[i - 1] * 2;
+            let i = i + 1;
+        }
+
+        let color = true;
+        let screen = 16384;
+
+        return;
+    }
+
+
+    /** Erases the entire screen. */
+    function void clearScreen() {
+        var int i;
+        let i = 0;
+        while(i < 8192){
+            let screen[i] = false;
+        }
+
+        return;
+    }
+
+    /** Sets the current color, to be used for all subsequent drawXXX commands.
+     *  Black is represented by true, white by false. */
+    function void setColor(boolean b) {
+        let color = b;
+        return;
+    }
+
+    /** Draws the (x,y) pixel, using the current color. */
+    function void drawPixel(int x, int y) {
+        var int address,mask;
+
+        let address = (y * 32) + (x / 16);
+        let mask = powersOfTwo[x & 15];
+
+        if(color){
+            let screen[address] = screen[address] | mask;
+        }else{
+            let screen[address] = screen[address] & ~mask;
+        }
+
+        return;
+
+    }
+
+    /** Draws a line from pixel (x1,y1) to pixel (x2,y2), using the current color. */
+   function void drawLine(int x1, int y1, int x2, int y2) {
+        var int dx, dy, sx, sy, err, e2;
+        let dx = Math.abs(x2 - x1);
+        if(x1 < x2){
+            let sx = 1;
+        } else {
+            let sx = -1;
+        }
+
+        let dy = -Math.abs(y2 - y1);
+
+        if(y1 < y2){
+            let sy = 1;
+        } else {
+            let sy = -1;
+        }
+        
+        let err = dx + dy;
+        
+        while (true) {
+            do Screen.drawPixel(x1, y1);
+            if (x1 = x2 & y1 = y2){
+                return;
+            } 
+            let e2 = 2 * err;
+            if ((e2 > dy) | (e2 = dy)) {
+                let err = err + dy;
+                let x1 = x1 + sx;
+            }
+            if ((e2 < dx) | (e2 = dx)) {
+                let err = err + dx;
+                let y1 = y1 + sy;
+            }
+        }
+        return;
+    }
+
+
+
+    function void drawRectangle(int x1, int y1, int x2, int y2) {
+        while ((y1 < y2) | (y1 = y2)) {
+            do Screen.drawLine(x1, y1, x2, y1);
+            let y1 = y1 + 1;
+        }
+
+        return;
+    }
+
+    function void drawCircle(int x, int y, int r) {
+        var int dy, dx;
+        let dy = -r;
+        
+        if (r > 181) {
+            return;
+        }
+
+        while ((dy = r) | (dy < r)) {
+            let dx = Math.sqrt((r * r) - (dy * dy));
+            do Screen.drawLine(x - dx, y + dy, x + dx, y + dy);
+            let dy = dy + 1;
+        }
+
+        return;
+    }
+}

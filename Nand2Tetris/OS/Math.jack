@@ -1,0 +1,128 @@
+/**
+ *  A library of commonly used mathematical functions.
+ *  All functions run in O(n), where n is the number of bits used
+ *  for representing a two's complement integer value (16 in the Hack computer). 
+ *  Note: Jack compilers implement multiplication and division
+ *  using calls to OS functions in this class.
+ */
+class Math {
+    static int n;             
+    static Array powersOfTwo; 
+
+
+    function void init() {
+        var int i;
+        let n = 16;
+        let powersOfTwo = Array.new(n);
+        let i = 0;
+        while (i < n) {
+            if (i = 0) {
+                let powersOfTwo[i] = 1;
+            } else {
+                let powersOfTwo[i] = 2 * powersOfTwo[i-1];
+            }
+            let i = i + 1;
+        }
+        return;
+    }
+
+
+    function int abs(int x) {
+        if(x < 0){
+            let x = -x;
+        }
+        return x;
+    }
+
+
+    function boolean bit(int x, int i){
+        return ~((x & powersOfTwo[i]) = 0);
+    }
+
+
+    function int multiply(int x, int y) {
+        var int answer, shift, i;
+
+        let answer = 0;
+        let shift = x;
+        let i = 0;
+
+        while(i < 16){
+            if(Math.bit(y,i)){
+                let answer = answer + shift;
+            }
+            let shift = shift + shift;
+            let i = i + 1;
+        }
+
+        return answer;
+    }
+
+    function boolean sameSign(int a, int b) {
+        return (a < 0) = (b < 0);
+    }
+
+    function int divide(int dividend, int divisor) {
+        var int quotient, finalResult;
+        var boolean isPositive;
+
+        let isPositive = Math.sameSign(dividend, divisor);
+
+        let dividend = Math.abs(dividend);
+        let divisor = Math.abs(divisor);
+
+        if (divisor > dividend) {
+            return 0;
+        }
+
+        let quotient = Math.divide(dividend, Math.multiply(2, divisor));
+        
+        if ((dividend - (Math.multiply(2, quotient) * divisor)) < divisor) {
+            let finalResult = Math.multiply(2, quotient);
+        } else {
+            let finalResult = Math.multiply(2, quotient) + 1;
+        }
+
+        if (isPositive) {
+            return finalResult;
+        } else {
+            return -finalResult;
+        }
+    }
+
+    function int sqrt(int x) {
+        var int guess, bitPosition, tempGuess, squaredTempGuess;
+        let guess = 0;
+        let bitPosition = 7;
+
+        while ((bitPosition > 0) | (bitPosition = 0)) {
+            let tempGuess = guess + powersOfTwo[bitPosition];
+            let squaredTempGuess = tempGuess * tempGuess;
+
+            if (((squaredTempGuess < x) |(squaredTempGuess = x)) & (squaredTempGuess > 0)) {
+                let guess = tempGuess;
+            }
+
+            let bitPosition = bitPosition - 1;
+        }
+
+        return guess;
+    }
+
+
+    /** Returns the greater number. */
+    function int max(int a, int b) {
+        if(a > b){
+            return a;
+        }
+        return b;
+    }
+
+    /** Returns the smaller number. */
+    function int min(int a, int b) {
+        if(a < b){
+            return a;
+        }
+        return b;
+    }
+}
